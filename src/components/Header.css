@@ -8,6 +8,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
+  background-color: var(--color-bg);
 }
 
 .header-content {
