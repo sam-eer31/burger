@@ -53,12 +53,17 @@ const VegSection = () => {
     let currentState = 0;
     let animTween = null;
 
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: "center center",
+      start: () => {
+        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+        return `top top+=${headerHeight}`;
+      },
       end: "+=1000px", // Absorbs exactly 4 scrolls (250px each)
       pin: true,
       onUpdate: (self) => {
+        if (document.body.style.overflow === 'hidden' || document.querySelector('.loading-screen')) return;
+
         let targetState = 0;
         if (self.progress > 0.1 && self.progress <= 0.35) targetState = 1;
         else if (self.progress > 0.35 && self.progress <= 0.60) targetState = 2;
@@ -83,7 +88,8 @@ const VegSection = () => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      if (animTween) animTween.kill();
+      if (st) st.kill();
     };
   }, []);
 

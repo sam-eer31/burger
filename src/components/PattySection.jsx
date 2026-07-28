@@ -61,12 +61,17 @@ const PattySection = () => {
     tl.to('.patty-text-left', { opacity: 1, y: 0, duration: 0.2 }, 1);
 
     let animState = 0;
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: "center center", // Trigger exactly when section is centered
+      start: () => {
+        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+        return `top top+=${headerHeight}`;
+      },
       end: "+=250px", // Pins just long enough to absorb one typical scroll spin
       pin: true,
       onUpdate: (self) => {
+        if (document.body.style.overflow === 'hidden' || document.querySelector('.loading-screen')) return;
+        
         if (self.progress > 0.05 && animState === 0) {
           animState = 1;
           tl.play();
@@ -78,7 +83,8 @@ const PattySection = () => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      if (tl) tl.kill();
+      if (st) st.kill();
     };
   }, []);
 

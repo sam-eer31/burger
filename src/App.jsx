@@ -17,10 +17,14 @@ function App() {
   useEffect(() => {
     if (!entered) {
       document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
     } else {
+      window.scrollTo(0, 0);
       document.body.style.overflow = 'auto';
+      
       // Refresh ScrollTrigger after unlocking scroll to ensure correct pinning
       setTimeout(() => {
+        window.scrollTo(0, 0);
         ScrollTrigger.refresh();
       }, 100);
     }

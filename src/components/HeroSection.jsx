@@ -56,12 +56,15 @@ const HeroSection = () => {
     });
 
     let animState = 0;
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: "top top",
+      start: 0, // Absolute scroll 0, completely guarantees it starts EXACTLY at the top without race conditions
       end: "+=250px", // Pins just long enough to absorb one typical scroll spin
       pin: true,
       onUpdate: (self) => {
+        // Prevent GSAP from falsely triggering animations while the loading screen is active and the browser is restoring scroll asynchronously
+        if (document.body.style.overflow === 'hidden' || document.querySelector('.loading-screen')) return;
+
         if (self.progress > 0.05 && animState === 0) {
           animState = 1;
           tl.play();
@@ -73,7 +76,8 @@ const HeroSection = () => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      if (tl) tl.kill();
+      if (st) st.kill();
     };
   }, []);
 
