@@ -46,10 +46,18 @@
 
 .bun-text {
   position: absolute;
-  max-width: 90vw;
+  width: 100%;
+  max-width: 55vw;
+  padding: 0 1rem;
   text-align: center;
   opacity: 0;
   transform: translateY(20px) scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .bun-text {
+    max-width: 75vw;
+  }
 }
 
 .bun-text h2 {

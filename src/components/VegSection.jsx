@@ -122,10 +122,10 @@ const VegSection = () => {
 
   const texts = [
     { title: "Farm Fresh", desc: "Hand-picked vegetables delivered daily to ensure the highest quality crunch." },
-    { title: "Crisp Lettuce", desc: "Iceberg lettuce so fresh and crisp, it perfectly complements the savory beef." },
+    { title: "Crunchy Pickles", desc: "Dill pickles barrel-cured for that classic, unmistakable burger tang." },
     { title: "Juicy Tomatoes", desc: "Sun-ripened tomatoes sliced thick to provide a refreshing, tangy balance." },
     { title: "Zesty Onions", desc: "Perfectly pungent red onions that add the ultimate flavor kick." },
-    { title: "Crunchy Pickles", desc: "Dill pickles barrel-cured for that classic, unmistakable burger tang." }
+    { title: "Crisp Lettuce", desc: "Iceberg lettuce so fresh and crisp, it perfectly complements the savory beef." }
   ];
 
   return (

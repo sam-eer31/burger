@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useCallback, useRef } from 
 const SettingsContext = createContext();
 
 export const SettingsProvider = ({ children }) => {
-  const [scrollLockEnabled, setScrollLockEnabled] = useState(false);
+  const [scrollLockEnabled, setScrollLockEnabled] = useState(true);
   const lockCount = useRef(0);
 
   const lockScroll = useCallback(() => {
