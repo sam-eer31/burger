@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container footer-content">
         <div className="footer-brand">
-          <img src="/logo.png" alt="BurgerFactory Logo" className="footer-logo" />
+          <img src="/logo.webp" alt="BurgerFactory Logo" className="footer-logo" />
           <p>The ultimate taste experience, crafted with passion and the finest ingredients.</p>
         </div>
         <div className="footer-links">

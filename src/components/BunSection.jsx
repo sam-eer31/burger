@@ -40,14 +40,12 @@ const BunSection = () => {
     };
 
     // Preload all images
-    assetLoader.addTotal(1);
+    assetLoader.addTotal(frameCount);
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.src = currentFrame(i);
-      if (i === 0) {
-        img.onload = () => assetLoader.increment();
-        img.onerror = () => assetLoader.increment();
-      }
+      img.onload = () => assetLoader.increment();
+      img.onerror = () => assetLoader.increment();
       images.push(img);
     }
 

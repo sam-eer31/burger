@@ -62,7 +62,7 @@ const Header = () => {
     <header className="header" ref={headerRef}>
       <div className="container header-content">
         <div className="logo">
-          <img src="/logo.png" alt="BurgerFactory Logo" className="site-logo" />
+          <img src="/logo.webp" alt="BurgerFactory Logo" className="site-logo" />
         </div>
         
         <nav className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>

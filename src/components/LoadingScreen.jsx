@@ -49,7 +49,7 @@ const LoadingScreen = ({ onEnter }) => {
   return (
     <div className="loading-screen">
       <div className="loading-content">
-        <img src="/logo.png" alt="BurgerFactory Logo" className="loading-logo" />
+        <img src="/logo.webp" alt="BurgerFactory Logo" className="loading-logo" />
         
         <div className="loading-status">
           <p className="loading-text">{getLoadingText()}</p>
