@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container footer-content">
         <div className="footer-brand">
-          <h2>BURGER<span>.</span></h2>
+          <h2>BurgerFactory<span>.</span></h2>
           <p>The ultimate taste experience, crafted with passion and the finest ingredients.</p>
         </div>
         <div className="footer-links">
@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom container">
-        <p>&copy; {new Date().getFullYear()} Burger. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} BurgerFactory. All rights reserved.</p>
       </div>
     </footer>
   );

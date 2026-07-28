@@ -49,7 +49,7 @@ const LoadingScreen = ({ onEnter }) => {
   return (
     <div className="loading-screen">
       <div className="loading-content">
-        <h1 className="loading-title">BURGER<span>.</span></h1>
+        <h1 className="loading-title">BurgerFactory<span>.</span></h1>
         
         <div className="loading-status">
           <p className="loading-text">{getLoadingText()}</p>

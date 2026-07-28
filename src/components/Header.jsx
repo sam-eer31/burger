@@ -1,11 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
 import './Header.css';
 
 const Header = () => {
   const headerRef = useRef(null);
   const [showSettings, setShowSettings] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollLockEnabled, setScrollLockEnabled } = useSettings();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleHomeClick = (e) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    if (location.pathname === '/') {
+      window.dispatchEvent(new Event('resetHome'));
+      window.scrollTo(0, 0);
+    } else {
+      navigate('/');
+      window.scrollTo(0, 0);
+    }
+  };
 
   useEffect(() => {
     const updateHeights = () => {
@@ -17,14 +34,13 @@ const Header = () => {
         document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
         document.documentElement.style.setProperty('--section-height', `${sectionHeight}px`);
         
-        // Refresh ScrollTrigger to recalculate pins after heights change
         if (window.ScrollTrigger) {
           window.ScrollTrigger.refresh();
         }
       }
     };
 
-    updateHeights(); // Initial set
+    updateHeights();
     
     const resizeObserver = new ResizeObserver(() => {
       updateHeights();
@@ -46,15 +62,31 @@ const Header = () => {
     <header className="header" ref={headerRef}>
       <div className="container header-content">
         <div className="logo">
-          <h1>BURGER<span>.</span></h1>
+          <h1>BurgerFactory<span>.</span></h1>
         </div>
-        <nav className="nav-links">
-          <a href="#menu">Menu</a>
-          <a href="#about">Our Story</a>
-          <a href="#locations">Locations</a>
+        
+        <nav className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+          <a href="/" onClick={handleHomeClick}>Home</a>
+          <Link to="/menu" onClick={() => setIsMobileMenuOpen(false)}>Menu</Link>
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>Our Story</a>
+          <a href="#locations" onClick={() => setIsMobileMenuOpen(false)}>Locations</a>
+          
+          <div className="mobile-settings">
+            <span>Scroll Lock Mode</span>
+            <label className="setting-item">
+              <input 
+                type="checkbox" 
+                checked={scrollLockEnabled}
+                onChange={(e) => setScrollLockEnabled(e.target.checked)}
+              />
+            </label>
+          </div>
         </nav>
+        
         <div className="header-action">
-          <div className="settings-container">
+          <button className="btn btn-primary order-btn">Order Now</button>
+          
+          <div className="settings-container desktop-settings">
             <button 
               className="settings-btn" 
               onClick={() => setShowSettings(!showSettings)}
@@ -81,7 +113,16 @@ const Header = () => {
               </div>
             )}
           </div>
-          <button className="btn btn-primary">Order Now</button>
+
+          <button 
+            className="hamburger-btn" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </header>

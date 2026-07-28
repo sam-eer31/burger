@@ -152,17 +152,79 @@
   font-size: 1rem;
 }
 
-@media (max-width: 850px) {
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-text);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.mobile-settings {
+  display: none;
+}
+
+@media (max-width: 920px) {
   .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    padding: 80px 2rem 2rem;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    gap: 1.5rem;
+  }
+
+  .nav-links.mobile-open {
+    right: 0;
+  }
+
+  .desktop-settings {
     display: none;
   }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .mobile-settings span {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+
   .header-content {
     padding: 0 1rem;
   }
   .logo h1 {
     font-size: 1.5rem;
   }
-  .header .btn {
+  .header .order-btn {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }

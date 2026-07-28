@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { assetLoader } from '../utils/assetLoader';
@@ -18,7 +19,7 @@ const HeroSection = () => {
     scrollLockRef.current = scrollLockEnabled;
   }, [scrollLockEnabled]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     
@@ -123,7 +124,7 @@ const HeroSection = () => {
           </p>
           <div className="hero-actions">
             <button className="btn btn-primary">Order Delivery</button>
-            <button className="btn btn-outline">View Menu</button>
+            <Link to="/menu" className="btn btn-outline">View Menu</Link>
           </div>
         </div>
       </div>

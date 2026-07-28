@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { assetLoader } from '../utils/assetLoader';
@@ -20,7 +20,7 @@ const VegSection = () => {
     scrollLockRef.current = scrollLockEnabled;
   }, [scrollLockEnabled]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     

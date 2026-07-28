@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import HeroSection from './components/HeroSection';
 import Footer from './components/Footer';
-import PattySection from './components/PattySection';
-import VegSection from './components/VegSection';
-import CheeseSection from './components/CheeseSection';
-import BunSection from './components/BunSection';
 import LoadingScreen from './components/LoadingScreen';
 import LandscapeOverlay from './components/LandscapeOverlay';
 import FullscreenOverlay from './components/FullscreenOverlay';
+import Home from './pages/Home';
+import MenuPage from './pages/MenuPage';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 function App() {
   const [entered, setEntered] = useState(false);
+  const [homeKey, setHomeKey] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleReset = () => setHomeKey(prev => prev + 1);
+    window.addEventListener('resetHome', handleReset);
+    return () => window.removeEventListener('resetHome', handleReset);
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname !== '/' && !entered) {
+      setEntered(true);
+    }
+  }, [location.pathname, entered]);
 
   useEffect(() => {
     if (!entered) {
@@ -42,11 +54,10 @@ function App() {
       {!entered && <LoadingScreen onEnter={() => setEntered(true)} />}
       <Header />
       <main>
-        <HeroSection />
-        <PattySection />
-        <VegSection />
-        <CheeseSection />
-        <BunSection />
+        <Routes>
+          <Route path="/" element={<Home key={homeKey} />} />
+          <Route path="/menu" element={<MenuPage />} />
+        </Routes>
       </main>
       <Footer />
     </div>
