@@ -24,7 +24,7 @@ const CheeseSection = () => {
     
     const frameCount = 192;
     const currentFrame = index => (
-      `/frames/cheese_frames/frame-${(index + 1).toString().padStart(4, '0')}.jpg`
+      `/frames/cheese_frames/frame-${(index + 1).toString().padStart(4, '0')}.webp`
     );
 
     const images = [];
@@ -40,12 +40,14 @@ const CheeseSection = () => {
     };
 
     // Preload all images
-    assetLoader.addTotal(frameCount);
+    assetLoader.addTotal(1);
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.src = currentFrame(i);
-      img.onload = () => assetLoader.increment();
-      img.onerror = () => assetLoader.increment();
+      if (i === 0) {
+        img.onload = () => assetLoader.increment();
+        img.onerror = () => assetLoader.increment();
+      }
       images.push(img);
     }
 
@@ -74,9 +76,10 @@ const CheeseSection = () => {
       ease: "power2.inOut",
       duration: 1.2,
       onUpdate: () => {
-        if (images[airpods.frame]) {
+        const frameIndex = Math.round(airpods.frame);
+        if (images[frameIndex]) {
           context.clearRect(0, 0, canvas.width, canvas.height);
-          context.drawImage(images[airpods.frame], 0, 0, canvas.width, canvas.height);
+          context.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
         }
       }
     }, 0);

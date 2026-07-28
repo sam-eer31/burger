@@ -25,7 +25,7 @@ const HeroSection = () => {
     
     const frameCount = 192;
     const currentFrame = index => (
-      `/frames/whole-burger_frames/frame-${(index + 1).toString().padStart(4, '0')}.jpg`
+      `/frames/whole-burger_frames/frame-${(index + 1).toString().padStart(4, '0')}.webp`
     );
 
     const images = [];
@@ -41,12 +41,14 @@ const HeroSection = () => {
     };
 
     // Preload all images
-    assetLoader.addTotal(frameCount);
+    assetLoader.addTotal(1);
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.src = currentFrame(i);
-      img.onload = () => assetLoader.increment();
-      img.onerror = () => assetLoader.increment();
+      if (i === 0) {
+        img.onload = () => assetLoader.increment();
+        img.onerror = () => assetLoader.increment();
+      }
       images.push(img);
     }
 
@@ -58,9 +60,10 @@ const HeroSection = () => {
       duration: 1.2,
       paused: true,
       onUpdate: () => {
-        if (images[airpods.frame]) {
+        const frameIndex = Math.round(airpods.frame);
+        if (images[frameIndex]) {
           context.clearRect(0, 0, canvas.width, canvas.height);
-          context.drawImage(images[airpods.frame], 0, 0, canvas.width, canvas.height);
+          context.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
         }
       },
       onComplete: () => {
