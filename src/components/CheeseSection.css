@@ -46,7 +46,7 @@
 
 .cheese-text {
   position: absolute;
-  max-width: calc(50vw - 3rem);
+  width: clamp(280px, 35vw, 550px);
 }
 
 .cheese-text-right {

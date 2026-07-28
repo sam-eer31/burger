@@ -62,7 +62,7 @@ const Header = () => {
     <header className="header" ref={headerRef}>
       <div className="container header-content">
         <div className="logo">
-          <h1>BurgerFactory<span>.</span></h1>
+          <img src="/logo.png" alt="BurgerFactory Logo" className="site-logo" />
         </div>
         
         <nav className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>

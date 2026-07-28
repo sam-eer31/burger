@@ -46,18 +46,18 @@
 
 .patty-text {
   position: absolute;
-  max-width: calc(50vw - 3rem);
+  width: clamp(280px, 35vw, 550px);
 }
 
 .patty-text-right {
-  right: max(2rem, calc((100vw - 1400px) / 2));
+  right: max(4rem, calc((100vw - 1400px) / 2));
   text-align: right;
   opacity: 1;
   transform: translateY(0);
 }
 
 .patty-text-left {
-  left: max(2rem, calc((100vw - 1400px) / 2));
+  left: max(4rem, calc((100vw - 1400px) / 2));
   text-align: left;
   opacity: 0;
   transform: translateY(20px);

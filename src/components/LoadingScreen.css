@@ -20,14 +20,12 @@
   max-width: 600px;
 }
 
-.loading-title {
-  font-size: clamp(2rem, 5vh, 3rem);
-  letter-spacing: 4px;
+.loading-logo {
+  max-width: 100%;
+  height: clamp(100px, 20vh, 250px);
+  width: auto;
+  object-fit: contain;
   margin-bottom: clamp(1rem, 5vh, 3rem);
-}
-
-.loading-title span {
-  color: var(--color-accent);
 }
 
 .loading-status {

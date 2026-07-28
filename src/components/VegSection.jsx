@@ -10,12 +10,12 @@ gsap.registerPlugin(ScrollTrigger);
 const VegSection = () => {
   const canvasRef = useRef(null);
   const sectionRef = useRef(null);
-  
+
   const [activeText, setActiveText] = useState(0);
-  
+
   const { scrollLockEnabled, lockScroll, unlockScroll } = useSettings();
   const scrollLockRef = useRef(scrollLockEnabled);
-  
+
   useEffect(() => {
     scrollLockRef.current = scrollLockEnabled;
   }, [scrollLockEnabled]);
@@ -23,7 +23,7 @@ const VegSection = () => {
   useLayoutEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    
+
     const frameCount = 192;
     const currentFrame = index => (
       `/frames/vegetables-plate_frames/frame-${(index + 1).toString().padStart(4, '0')}.jpg`
@@ -82,7 +82,7 @@ const VegSection = () => {
         if (targetState !== currentState) {
           currentState = targetState;
           setActiveText(targetState);
-          
+
           if (animTween) {
             animTween.kill(); // Kill any ongoing animation
             if (isLocked) {
@@ -90,12 +90,12 @@ const VegSection = () => {
               isLocked = false;
             }
           }
-          
+
           if (scrollLockRef.current) {
             lockScroll();
             isLocked = true;
           }
-          
+
           animTween = gsap.to(airpods, {
             frame: targetFrames[targetState],
             snap: "frame",
@@ -122,10 +122,10 @@ const VegSection = () => {
 
   const texts = [
     { title: "Farm Fresh", desc: "Hand-picked vegetables delivered daily to ensure the highest quality crunch." },
-    { title: "Crunchy Pickles", desc: "Dill pickles barrel-cured for that classic, unmistakable burger tang." },
     { title: "Juicy Tomatoes", desc: "Sun-ripened tomatoes sliced thick to provide a refreshing, tangy balance." },
     { title: "Zesty Onions", desc: "Perfectly pungent red onions that add the ultimate flavor kick." },
-    { title: "Crisp Lettuce", desc: "Iceberg lettuce so fresh and crisp, it perfectly complements the savory beef." }
+    { title: "Crisp Lettuce", desc: "Iceberg lettuce so fresh and crisp, it perfectly complements the savory beef." },
+    { title: "Crunchy Pickles", desc: "Dill pickles barrel-cured for that classic, unmistakable burger tang." }
   ];
 
   return (
@@ -133,8 +133,8 @@ const VegSection = () => {
       <div className="veg-content">
         <div className="veg-text-wrapper">
           {texts.map((text, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`veg-text ${activeText === index ? 'veg-text-visible' : 'veg-text-hidden'}`}
             >
               <h2>{text.title}</h2>

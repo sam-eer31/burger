@@ -17,13 +17,11 @@
   max-width: 400px;
 }
 
-.footer-brand h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.footer-brand span {
-  color: var(--color-accent);
+.footer-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
 }
 
 .footer-brand p {

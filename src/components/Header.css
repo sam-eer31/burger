@@ -17,14 +17,11 @@
   align-items: center;
 }
 
-.logo h1 {
-  font-size: 2rem;
-  letter-spacing: 2px;
-  margin: 0;
-}
-
-.logo span {
-  color: var(--color-accent);
+.site-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-links {
@@ -221,8 +218,8 @@
   .header-content {
     padding: 0 1rem;
   }
-  .logo h1 {
-    font-size: 1.5rem;
+  .site-logo {
+    height: 30px;
   }
   .header .order-btn {
     padding: 0.5rem 1rem;
