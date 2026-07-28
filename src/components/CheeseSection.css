@@ -1,0 +1,85 @@
+.cheese-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cheese-canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cheese-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cheese-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.8) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cheese-text-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 max(2rem, calc((100vw - 1400px) / 2));
+}
+
+.cheese-text {
+  position: absolute;
+  max-width: 450px;
+}
+
+.cheese-text-right {
+  right: max(2rem, calc((100vw - 1400px) / 2));
+  text-align: right;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cheese-text-left {
+  left: max(5rem, calc((100vw - 1300px) / 2)); /* Shifted slightly more right to align perfectly over the wrapper visually */
+  text-align: left;
+  opacity: 0;
+  /* Slight rotation to make it feel "stamped" or resting on the wrapper */
+  transform: translateY(30px) rotate(-2deg);
+}
+
+.cheese-text h2 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  color: #ffb100; /* Cheesy yellow accent */
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  text-shadow: 0 4px 15px rgba(255, 177, 0, 0.3);
+}
+
+.cheese-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #f5f5f5;
+}
+
+/* Modifier class applied by GSAP */
+.cheese-text-left-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(-2deg);
+}
