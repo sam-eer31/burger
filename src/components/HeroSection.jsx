@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { assetLoader } from '../utils/assetLoader';
+import { useSettings } from '../context/SettingsContext';
 import './HeroSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -9,6 +10,13 @@ gsap.registerPlugin(ScrollTrigger);
 const HeroSection = () => {
   const canvasRef = useRef(null);
   const sectionRef = useRef(null);
+  
+  const { scrollLockEnabled, lockScroll, unlockScroll } = useSettings();
+  const scrollLockRef = useRef(scrollLockEnabled);
+  
+  useEffect(() => {
+    scrollLockRef.current = scrollLockEnabled;
+  }, [scrollLockEnabled]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -41,6 +49,7 @@ const HeroSection = () => {
       images.push(img);
     }
 
+    let isLocked = false;
     const tl = gsap.to(airpods, {
       frame: frameCount - 1,
       snap: "frame",
@@ -51,6 +60,18 @@ const HeroSection = () => {
         if (images[airpods.frame]) {
           context.clearRect(0, 0, canvas.width, canvas.height);
           context.drawImage(images[airpods.frame], 0, 0, canvas.width, canvas.height);
+        }
+      },
+      onComplete: () => {
+        if (isLocked) {
+          unlockScroll();
+          isLocked = false;
+        }
+      },
+      onReverseComplete: () => {
+        if (isLocked) {
+          unlockScroll();
+          isLocked = false;
         }
       }
     });
@@ -63,13 +84,21 @@ const HeroSection = () => {
       pin: true,
       onUpdate: (self) => {
         // Prevent GSAP from falsely triggering animations while the loading screen is active and the browser is restoring scroll asynchronously
-        if (document.body.style.overflow === 'hidden' || document.querySelector('.loading-screen')) return;
+        if (document.body.style.overflow === 'hidden' && !isLocked || document.querySelector('.loading-screen')) return;
 
         if (self.progress > 0.05 && animState === 0) {
           animState = 1;
+          if (scrollLockRef.current && !isLocked) {
+            lockScroll();
+            isLocked = true;
+          }
           tl.play();
         } else if (self.progress <= 0.05 && animState === 1) {
           animState = 0;
+          if (scrollLockRef.current && !isLocked) {
+            lockScroll();
+            isLocked = true;
+          }
           tl.reverse();
         }
       }
@@ -78,6 +107,7 @@ const HeroSection = () => {
     return () => {
       if (tl) tl.kill();
       if (st) st.kill();
+      if (isLocked) unlockScroll();
     };
   }, []);
 

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { assetLoader } from '../utils/assetLoader';
+import { useSettings } from '../context/SettingsContext';
 import './BunSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -9,6 +10,13 @@ gsap.registerPlugin(ScrollTrigger);
 const BunSection = () => {
   const canvasRef = useRef(null);
   const sectionRef = useRef(null);
+
+  const { scrollLockEnabled, lockScroll, unlockScroll } = useSettings();
+  const scrollLockRef = useRef(scrollLockEnabled);
+  
+  useEffect(() => {
+    scrollLockRef.current = scrollLockEnabled;
+  }, [scrollLockEnabled]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -41,7 +49,22 @@ const BunSection = () => {
       images.push(img);
     }
 
-    const tl = gsap.timeline({ paused: true });
+    let isLocked = false;
+    const tl = gsap.timeline({ 
+      paused: true,
+      onComplete: () => {
+        if (isLocked) {
+          unlockScroll();
+          isLocked = false;
+        }
+      },
+      onReverseComplete: () => {
+        if (isLocked) {
+          unlockScroll();
+          isLocked = false;
+        }
+      }
+    });
 
     // Video animation
     tl.to(airpods, {
@@ -75,13 +98,21 @@ const BunSection = () => {
       end: "+=250px", // Eat one spin
       pin: true,
       onUpdate: (self) => {
-        if (document.body.style.overflow === 'hidden' || document.querySelector('.loading-screen')) return;
+        if (document.body.style.overflow === 'hidden' && !isLocked || document.querySelector('.loading-screen')) return;
         
         if (self.progress > 0.05 && animState === 0) {
           animState = 1;
+          if (scrollLockRef.current && !isLocked) {
+            lockScroll();
+            isLocked = true;
+          }
           tl.play();
         } else if (self.progress <= 0.05 && animState === 1) {
           animState = 0;
+          if (scrollLockRef.current && !isLocked) {
+            lockScroll();
+            isLocked = true;
+          }
           tl.reverse();
         }
       }
@@ -90,6 +121,7 @@ const BunSection = () => {
     return () => {
       if (tl) tl.kill();
       if (st) st.kill();
+      if (isLocked) unlockScroll();
     };
   }, []);
 

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { assetLoader } from '../utils/assetLoader';
+import { useSettings } from '../context/SettingsContext';
 import './VegSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,6 +12,13 @@ const VegSection = () => {
   const sectionRef = useRef(null);
   
   const [activeText, setActiveText] = useState(0);
+  
+  const { scrollLockEnabled, lockScroll, unlockScroll } = useSettings();
+  const scrollLockRef = useRef(scrollLockEnabled);
+  
+  useEffect(() => {
+    scrollLockRef.current = scrollLockEnabled;
+  }, [scrollLockEnabled]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,6 +60,7 @@ const VegSection = () => {
     const targetFrames = [0, 50, 92, 132, 191];
     let currentState = 0;
     let animTween = null;
+    let isLocked = false;
 
     const st = ScrollTrigger.create({
       trigger: sectionRef.current,
@@ -62,7 +71,7 @@ const VegSection = () => {
       end: "+=1000px", // Absorbs exactly 4 scrolls (250px each)
       pin: true,
       onUpdate: (self) => {
-        if (document.body.style.overflow === 'hidden' || document.querySelector('.loading-screen')) return;
+        if (document.body.style.overflow === 'hidden' && !isLocked || document.querySelector('.loading-screen')) return;
 
         let targetState = 0;
         if (self.progress > 0.1 && self.progress <= 0.35) targetState = 1;
@@ -74,14 +83,31 @@ const VegSection = () => {
           currentState = targetState;
           setActiveText(targetState);
           
-          if (animTween) animTween.kill(); // Kill any ongoing animation
+          if (animTween) {
+            animTween.kill(); // Kill any ongoing animation
+            if (isLocked) {
+              unlockScroll();
+              isLocked = false;
+            }
+          }
+          
+          if (scrollLockRef.current) {
+            lockScroll();
+            isLocked = true;
+          }
           
           animTween = gsap.to(airpods, {
             frame: targetFrames[targetState],
             snap: "frame",
             ease: "power2.inOut",
             duration: 0.8,
-            onUpdate: drawFrame
+            onUpdate: drawFrame,
+            onComplete: () => {
+              if (isLocked) {
+                unlockScroll();
+                isLocked = false;
+              }
+            }
           });
         }
       }
@@ -90,6 +116,7 @@ const VegSection = () => {
     return () => {
       if (animTween) animTween.kill();
       if (st) st.kill();
+      if (isLocked) unlockScroll();
     };
   }, []);
 
