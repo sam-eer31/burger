@@ -1,0 +1,50 @@
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: #fff;
+  z-index: 2147483646; /* Just below landscape overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.fullscreen-overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 3vh, 1.5rem);
+  max-width: 500px;
+}
+
+.fullscreen-icon {
+  width: clamp(32px, 8vh, 64px);
+  height: clamp(32px, 8vh, 64px);
+  color: var(--color-accent);
+  animation: pulse-scale 2s infinite ease-in-out;
+}
+
+.fullscreen-overlay h2 {
+  font-size: clamp(1.5rem, 5vh, 2.2rem);
+  margin: 0;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+}
+
+.fullscreen-overlay p {
+  font-size: clamp(0.9rem, 3vh, 1.2rem);
+  color: #ccc;
+  line-height: 1.5;
+}
+
+@keyframes pulse-scale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { assetLoader } from '../utils/assetLoader';
 import './VegSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,9 +32,13 @@ const VegSection = () => {
       context.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
 
+    // Preload all images
+    assetLoader.addTotal(frameCount);
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.src = currentFrame(i);
+      img.onload = () => assetLoader.increment();
+      img.onerror = () => assetLoader.increment();
       images.push(img);
     }
 
