@@ -45,7 +45,7 @@ Our grand entrance. The burger fully assembles as you scroll down.
 </div>
 
 ### 3️⃣ Fresh Greens & Cheese
-*Crisp lettuce, ripe tomatoes, and melting cheese.*
+*Crisp lettuce, ripe tomatoes, onions and pickles.*
 
 <div align="center">
   <img src="public/website-screenshots/third-section-animation-0.png" width="600" />
@@ -80,8 +80,8 @@ To run the project locally and experience the animations firsthand:
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
-   cd Burger
+   git clone https://github.com/sam-eer31/burger
+   cd burger
    ```
 
 2. **Install dependencies:**
