@@ -8,6 +8,7 @@ import FullscreenOverlay from './components/FullscreenOverlay';
 import Home from './pages/Home';
 import MenuPage from './pages/MenuPage';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [entered, setEntered] = useState(false);
@@ -49,6 +50,7 @@ function App() {
 
   return (
     <div className="App">
+      <Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
       {entered && <LandscapeOverlay />}
       <FullscreenOverlay isEntered={entered} />
       {!entered && <LoadingScreen onEnter={() => setEntered(true)} />}

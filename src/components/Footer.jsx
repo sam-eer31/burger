@@ -1,4 +1,5 @@
 import React from 'react';
+import { showDemoToast } from '../utils/demoToast';
 import './Footer.css';
 
 const Footer = () => {
@@ -12,14 +13,14 @@ const Footer = () => {
         <div className="footer-links">
           <div className="link-column">
             <h3>Explore</h3>
-            <a href="#menu">Menu</a>
-            <a href="#locations">Locations</a>
-            <a href="#about">About Us</a>
+            <a href="#menu" onClick={showDemoToast}>Menu</a>
+            <a href="#locations" onClick={showDemoToast}>Locations</a>
+            <a href="#about" onClick={showDemoToast}>About Us</a>
           </div>
           <div className="link-column">
             <h3>Legal</h3>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
+            <a href="#privacy" onClick={showDemoToast}>Privacy Policy</a>
+            <a href="#terms" onClick={showDemoToast}>Terms of Service</a>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { showDemoToast } from '../utils/demoToast';
 import './LocationSection.css';
 
 const LocationSection = () => {
@@ -24,7 +25,7 @@ const LocationSection = () => {
               <h3>Contact</h3>
               <p>Lost at Sea?<br />Call: 555-BUR-GERS</p>
             </div>
-            <button className="btn btn-primary direction-btn">Get Directions</button>
+            <button className="btn btn-primary direction-btn" onClick={showDemoToast}>Get Directions</button>
           </div>
           
           <div className="map-container">

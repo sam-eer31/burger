@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
+import { showDemoToast } from '../utils/demoToast';
 import './Header.css';
 
 const Header = () => {
@@ -61,15 +62,15 @@ const Header = () => {
   return (
     <header className="header" ref={headerRef}>
       <div className="container header-content">
-        <div className="logo">
+        <a href="/" onClick={handleHomeClick} className="logo">
           <img src="/logo.webp" alt="BurgerFactory Logo" className="site-logo" />
-        </div>
+        </a>
         
         <nav className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <a href="/" onClick={handleHomeClick}>Home</a>
           <Link to="/menu" onClick={() => setIsMobileMenuOpen(false)}>Menu</Link>
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>Our Story</a>
-          <a href="#locations" onClick={() => setIsMobileMenuOpen(false)}>Locations</a>
+          <a href="#about" onClick={(e) => { setIsMobileMenuOpen(false); showDemoToast(e); }}>Our Story</a>
+          <a href="#locations" onClick={(e) => { setIsMobileMenuOpen(false); showDemoToast(e); }}>Locations</a>
           
           <div className="mobile-settings">
             <span>Scroll Lock Mode</span>
@@ -84,7 +85,7 @@ const Header = () => {
         </nav>
         
         <div className="header-action">
-          <button className="btn btn-primary order-btn">Order Now</button>
+          <button className="btn btn-primary order-btn" onClick={showDemoToast}>Order Now</button>
           
           <div className="settings-container desktop-settings">
             <button 

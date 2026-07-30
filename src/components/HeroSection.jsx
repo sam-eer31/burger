@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { assetLoader } from '../utils/assetLoader';
 import { useSettings } from '../context/SettingsContext';
+import { showDemoToast } from '../utils/demoToast';
 import './HeroSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -124,7 +125,7 @@ const HeroSection = () => {
             Crafted with 100% grass-fed beef, artisanal buns, and farm-fresh ingredients.
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary">Order Delivery</button>
+            <button className="btn btn-primary" onClick={showDemoToast}>Order Delivery</button>
             <Link to="/menu" className="btn btn-outline">View Menu</Link>
           </div>
         </div>
